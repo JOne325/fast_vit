@@ -14,4 +14,4 @@ COPY vit_base_patch16_224_imagenet21k_fp16.tflite .
 
 EXPOSE 8080
 
-CMD ["sh", "-c", "uvicorn app:app --host 0.0.0.0 --port ${PORT:-8080}"]
+CMD ["sh", "-c", "echo '=== STARTING UVICORN ===' && uvicorn app:app --host 0.0.0.0 --port ${PORT:-8080}"]
