@@ -1,24 +1,17 @@
 FROM python:3.11-slim
 
-# Prevent Python from writing .pyc files
 ENV PYTHONDONTWRITEBYTECODE=1
-
-# Flush Python output immediately
 ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-# Install Python dependencies
 COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application and model
 COPY app.py .
 COPY vit_base_patch16_224_imagenet21k_fp16.tflite .
 
-# Hugging Face Spaces expects the application on port 7860
-EXPOSE 7860
+EXPOSE 8080
 
-# Start FastAPI
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "7860"]
+CMD ["sh", "-c", "uvicorn app:app --host 0.0.0.0 --port ${PORT:-8080}"]
