@@ -25,6 +25,28 @@ print("=== CREATING FASTAPI APP ===", flush=True)
 
 app = FastAPI()
 
+print("=== MODEL FILE DEBUG ===", flush=True)
+print("Current directory:", os.getcwd(), flush=True)
+print("Model path:", MODEL_PATH, flush=True)
+print("Absolute path:", os.path.abspath(MODEL_PATH), flush=True)
+print("Exists:", os.path.exists(MODEL_PATH), flush=True)
+
+if os.path.exists(MODEL_PATH):
+    print("Size:", os.path.getsize(MODEL_PATH), "bytes", flush=True)
+
+    with open(MODEL_PATH, "rb") as f:
+        data = f.read(32)
+
+    print("First 32 bytes:", repr(data), flush=True)
+    print("First 4 bytes:", repr(data[4:8]), flush=True)
+
+print("=== END MODEL FILE DEBUG ===", flush=True)
+
+print("=== LOADING TFLITE MODEL ===", flush=True)
+
+interpreter = Interpreter(
+    model_path=MODEL_PATH
+)
 
 print("=== LOADING TFLITE MODEL ===", flush=True)
 
