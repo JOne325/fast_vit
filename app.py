@@ -196,9 +196,6 @@ async def predict(file: UploadFile = File(...)):
         dtype=np.float32
     )
 
-    # Same preprocessing used during inference
-    image = image / 255.0
-
     # Add batch dimension
     image = np.expand_dims(
         image,
